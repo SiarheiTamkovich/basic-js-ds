@@ -13,102 +13,45 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
  module.exports = class Stack {
-  push(/* element */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(...items){
+    this._items = []
+
+    if(items.length>0)
+      items.forEach(item => this._items.push(item) )
+
   }
 
-  pop() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  push(...items){
+    //push item to the stack
+     items.forEach(item => this._items.push(item) )
+     return this._items;
+
   }
 
-  peek() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  pop(count=0){
+    //pull out the topmost item (last item) from stack
+    if(count===0)
+      return this._items.pop()
+     else
+       return this._items.splice( -count, count )
+  }
+
+  peek(){
+    // see what's the last item in stack
+    return this._items[this._items.length-1]
+  }
+
+  size(){
+    //no. of items in stack
+    return this._items.length
+  }
+
+  isEmpty(){
+    // return whether the stack is empty or not
+    return this._items.length==0
+  }
+
+  toArray(){
+    return this._items;
   }
 }
-// Linked List
-function Node(data) {
-  this.data = data;
-  this.next = null;
-}
-
-// Stack implemented using LinkedList
-function Stack() {
-  this.top = null;
-}
-
-Stack.prototype.push = function(data) {
-  var newNode = new Node(data);
-
-  newNode.next = this.top; //Special attention
-  this.top = newNode;
-}
-
-Stack.prototype.pop = function() {
-  if (this.top !== null) {
-    var topItem = this.top.data;
-    this.top = this.top.next;
-    return topItem;
-  }
-  return null;
-}
-
-Stack.prototype.print = function() {
-  var curr = this.top;
-  while (curr) {
-    console.log(curr.data);
-    curr = curr.next;
-  }
-}
-
-// var stack = new Stack();
-// stack.push(3);
-// stack.push(5);
-// stack.push(7);
-// stack.print();
-
-// Queue implemented using LinkedList
-function Queue() {
-  this.head = null;
-  this.tail = null;
-}
-
-Queue.prototype.enqueue = function(data) {
-  var newNode = new Node(data);
-
-  if (this.head === null) {
-    this.head = newNode;
-    this.tail = newNode;
-  } else {
-    this.tail.next = newNode;
-    this.tail = newNode;
-  }
-}
-
-Queue.prototype.dequeue = function() {
-  var newNode;
-  if (this.head !== null) {
-    newNode = this.head.data;
-    this.head = this.head.next;
-  }
-  return newNode;
-}
-
-Queue.prototype.print = function() {
-  var curr = this.head;
-  while (curr) {
-    console.log(curr.data);
-    curr = curr.next;
-  }
-}
-
-var queue = new Queue();
-queue.enqueue(3);
-queue.enqueue(5);
-queue.enqueue(7);
-queue.print();
-queue.dequeue();
-queue.dequeue();
-queue.print();
